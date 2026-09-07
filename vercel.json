@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install",
   "buildCommand": "node scripts/build-all.js",
   "outputDirectory": "dist",
   "cleanUrls": true,

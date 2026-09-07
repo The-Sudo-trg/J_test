@@ -27,10 +27,18 @@ function copyFolderSync(from, to) {
 
 console.log("=== Building All Marketplace Apps for Production ===");
 
-// 1. Build each app
+// 1. Install dependencies & build each app
 for (const app of apps) {
   const appPath = path.join(rootDir, app.dir);
-  console.log(`\nBuilding ${app.name} in ${app.dir}...`);
+
+  // Install sub-app dependencies (including devDependencies like vite)
+  // Use npm ci if a lockfile exists for faster, deterministic installs; fallback to npm install
+  const lockfilePath = path.join(appPath, "package-lock.json");
+  const installCmd = fs.existsSync(lockfilePath) ? "npm ci" : "npm install";
+  console.log(`\nInstalling dependencies for ${app.name} (${installCmd})...`);
+  execSync(installCmd, { cwd: appPath, stdio: "inherit" });
+
+  console.log(`Building ${app.name} in ${app.dir}...`);
   execSync("npm run build", { cwd: appPath, stdio: "inherit" });
 }
 
