@@ -1,0 +1,12 @@
+{
+  "name": "justto-marketplace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-app hyper-local marketplace platform",
+  "scripts": {
+    "install:all": "npm --prefix frontend/customer-app install && npm --prefix frontend/seller-app install && npm --prefix frontend/admin-app install && npm --prefix frontend/delivery-app install",
+    "build": "node scripts/build-all.js",
+    "test": "npm --prefix frontend/customer-app test"
+  },
+  "devDependencies": {}
+}
